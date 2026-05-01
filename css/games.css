@@ -1,0 +1,20 @@
+.game-btn {
+  background: linear-gradient(145deg, #2ec4b6, #1aa89c);
+  color: white;
+
+  margin: 10px;
+  padding: 12px 20px;
+
+  box-shadow:
+    0 5px 0 #137d75,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.game-btn:hover {
+  transform: translateY(-2px);
+}
+
+.game-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #137d75;
+}

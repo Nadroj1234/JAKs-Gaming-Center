@@ -1,0 +1,74 @@
+:root {
+  --main_text: #bc8034;
+  --main_bg: #d9cab3;
+  --card_bg: #90323d;
+}
+
+body {
+  background-color: var(--main_bg);
+}
+
+.hidden {
+  display: none;
+}
+
+.screen {
+  text-align: center;
+  padding: 20px;
+}
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.game-card {
+  color: var(--main_text);
+  padding: 20px;
+  border: 2px solid;
+  cursor: pointer;
+  transition: 0.2s;
+  background-color: var(--card_bg);
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-card {
+  background: linear-gradient(145deg, #1f1f2e, #2a2a40);
+  color: #ffffff;
+
+  padding: 25px;
+  width: 200px;
+  border-radius: 16px;
+
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  /* Depth effect */
+  box-shadow:
+    0 8px 0 #141420,
+    0 12px 20px rgba(0, 0, 0, 0.4);
+
+  transition: all 0.15s ease;
+}
+
+.back-btn {
+  background: linear-gradient(145deg, #444, #222);
+  color: white;
+
+  margin-top: 15px;
+
+  box-shadow:
+    0 5px 0 #111,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.back-btn:active {
+  transform: translateY(3px);
+}

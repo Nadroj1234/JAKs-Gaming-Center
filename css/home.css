@@ -1,0 +1,78 @@
+.header {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.main_header {
+  justify-content: center;
+}
+
+.btn {
+  all: unset;
+  cursor: pointer;
+
+  padding: 10px 18px;
+  border-radius: 10px;
+
+  font-weight: bold;
+  font-size: 14px;
+
+  transition: all 0.15s ease;
+}
+
+/* Home button style */
+.home-btn {
+  background: linear-gradient(145deg, #3a86ff, #265df2);
+  color: white;
+
+  box-shadow:
+    0 5px 0 #1a3fb5,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  margin: 10px;
+}
+
+.home-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 7px 0 #1a3fb5,
+    0 10px 18px rgba(0, 0, 0, 0.4);
+}
+
+.home-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 2px 0 #1a3fb5,
+    0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.back-btn {
+  background: linear-gradient(145deg, #444, #222);
+  color: white;
+
+  margin-top: 15px;
+
+  box-shadow:
+    0 5px 0 #111,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.back-btn:active {
+  transform: translateY(3px);
+}
+
+.action-btn {
+  background: linear-gradient(145deg, #ffbe0b, #e6a800);
+  color: black;
+
+  margin-top: 15px;
+
+  box-shadow:
+    0 5px 0 #b88700,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.action-btn:active {
+  transform: translateY(3px);
+}
