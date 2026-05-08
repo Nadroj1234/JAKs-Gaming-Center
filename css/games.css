@@ -18,3 +18,54 @@
   transform: translateY(3px);
   box-shadow: 0 2px 0 #137d75;
 }
+#memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  gap: 10px;
+  justify-content: center;
+
+  margin-top: 20px;
+}
+
+.card {
+  width: 100px;
+  height: 100px;
+
+  background-color: #2a2a40;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 30px;
+  cursor: pointer;
+
+  color: transparent;
+
+  transition: 0.2s;
+}
+
+.card.flipped {
+  background-color: #ffd369;
+  color: black;
+}
+
+#memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  gap: 10px;
+  justify-content: center;
+}
+
+.card.matched {
+  background-color: #4caf50;
+  color: white;
+  cursor: default;
+  opacity: 0.8;
+}
+
+#winner-div {
+  color: var(--main_text);
+  font-size: 100px;
+}

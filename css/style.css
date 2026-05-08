@@ -58,17 +58,6 @@ body {
   transition: all 0.15s ease;
 }
 
-.back-btn {
-  background: linear-gradient(145deg, #444, #222);
-  color: white;
-
-  margin-top: 15px;
-
-  box-shadow:
-    0 5px 0 #111,
-    0 8px 15px rgba(0, 0, 0, 0.3);
-}
-
-.back-btn:active {
-  transform: translateY(3px);
+.winner_header {
+  color: var(--main_text);
 }
