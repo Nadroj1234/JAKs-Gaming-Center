@@ -5,7 +5,7 @@ let reactionStartTime;
 let reactionTimeout;
 let canClick = false;
 
-// Box is always visible
+// Starting state
 reactionBox.textContent = "WAIT";
 reactionBox.style.backgroundColor = "red";
 
@@ -14,7 +14,7 @@ function startReactionGame() {
 
   reactionTimeText.textContent = "Wait for green...";
 
-  // Reset box to red
+  // Reset to red
   reactionBox.style.backgroundColor = "red";
   reactionBox.textContent = "WAIT";
 
@@ -52,7 +52,7 @@ reactionBox.addEventListener("click", () => {
   reactionTimeText.textContent =
     `Reaction Time: ${reactionTime} ms`;
 
-  // Reset box
+  // Reset back to red
   reactionBox.style.backgroundColor = "red";
   reactionBox.textContent = "WAIT";
 
