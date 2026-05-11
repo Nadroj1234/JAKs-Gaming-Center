@@ -3,27 +3,29 @@ const reactionTimeText = document.getElementById("reaction-time");
 
 let reactionStartTime;
 let reactionTimeout;
-let gameStarted = false;
 let canClick = false;
 
+// Box is always visible
 reactionBox.textContent = "WAIT";
+reactionBox.style.backgroundColor = "red";
 
 function startReactionGame() {
   clearTimeout(reactionTimeout);
 
   reactionTimeText.textContent = "Wait for green...";
+
+  // Reset box to red
+  reactionBox.style.backgroundColor = "red";
   reactionBox.textContent = "WAIT";
 
-  reactionBox.classList.remove("ready");
-
-  gameStarted = true;
   canClick = false;
 
   // Random delay between 2–5 seconds
   const delay = Math.random() * 3000 + 2000;
 
   reactionTimeout = setTimeout(() => {
-    reactionBox.classList.add("ready");
+    // Turn green when ready
+    reactionBox.style.backgroundColor = "green";
     reactionBox.textContent = "CLICK!";
 
     reactionStartTime = Date.now();
@@ -32,33 +34,27 @@ function startReactionGame() {
 }
 
 reactionBox.addEventListener("click", () => {
-  // Prevent clicking before game starts
-  if (!gameStarted) {
-    reactionTimeText.textContent = "Press Start First!";
-    return;
-  }
-
-  // Prevent preclicking
+  // Clicked too early
   if (!canClick) {
     clearTimeout(reactionTimeout);
 
     reactionTimeText.textContent = "Too Early!";
 
-    reactionBox.classList.remove("ready");
+    reactionBox.style.backgroundColor = "red";
     reactionBox.textContent = "WAIT";
 
-    gameStarted = false;
     return;
   }
 
+  // Calculate reaction time
   const reactionTime = Date.now() - reactionStartTime;
 
   reactionTimeText.textContent =
     `Reaction Time: ${reactionTime} ms`;
 
-  reactionBox.classList.remove("ready");
+  // Reset box
+  reactionBox.style.backgroundColor = "red";
   reactionBox.textContent = "WAIT";
 
-  gameStarted = false;
   canClick = false;
 });
