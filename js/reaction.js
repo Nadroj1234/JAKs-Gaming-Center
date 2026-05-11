@@ -3,44 +3,62 @@ const reactionTimeText = document.getElementById("reaction-time");
 
 let reactionStartTime;
 let reactionTimeout;
+let gameStarted = false;
 let canClick = false;
 
-// Start the reaction game
+reactionBox.textContent = "WAIT";
+
 function startReactionGame() {
-  reactionTimeText.textContent = "Wait for the box...";
+  clearTimeout(reactionTimeout);
 
-  // Reset box
-  reactionBox.style.display = "none";
-  reactionBox.style.backgroundColor = "red";
+  reactionTimeText.textContent = "Wait for green...";
+  reactionBox.textContent = "WAIT";
 
+  reactionBox.classList.remove("ready");
+
+  gameStarted = true;
   canClick = false;
 
-  // Random delay between 2 and 5 seconds
+  // Random delay between 2–5 seconds
   const delay = Math.random() * 3000 + 2000;
 
   reactionTimeout = setTimeout(() => {
-    reactionBox.style.display = "block";
-    reactionBox.style.backgroundColor = "limegreen";
+    reactionBox.classList.add("ready");
+    reactionBox.textContent = "CLICK!";
 
     reactionStartTime = Date.now();
     canClick = true;
   }, delay);
 }
 
-// When player clicks the box
 reactionBox.addEventListener("click", () => {
+  // Prevent clicking before game starts
+  if (!gameStarted) {
+    reactionTimeText.textContent = "Press Start First!";
+    return;
+  }
+
+  // Prevent preclicking
   if (!canClick) {
-    reactionTimeText.textContent = "Too early! Try again.";
     clearTimeout(reactionTimeout);
+
+    reactionTimeText.textContent = "Too Early!";
+
+    reactionBox.classList.remove("ready");
+    reactionBox.textContent = "WAIT";
+
+    gameStarted = false;
     return;
   }
 
   const reactionTime = Date.now() - reactionStartTime;
 
   reactionTimeText.textContent =
-    `Your reaction time was ${reactionTime} ms`;
+    `Reaction Time: ${reactionTime} ms`;
 
+  reactionBox.classList.remove("ready");
+  reactionBox.textContent = "WAIT";
+
+  gameStarted = false;
   canClick = false;
-
-  reactionBox.style.display = "none";
 });
