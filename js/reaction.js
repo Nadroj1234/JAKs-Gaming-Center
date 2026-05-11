@@ -7,15 +7,14 @@ let canClick = false;
 
 // Starting state
 reactionBox.textContent = "WAIT";
-reactionBox.style.backgroundColor = "red";
 
 function startReactionGame() {
   clearTimeout(reactionTimeout);
 
   reactionTimeText.textContent = "Wait for green...";
 
-  // Reset to red
-  reactionBox.style.backgroundColor = "red";
+  // Reset box to red
+  reactionBox.classList.remove("ready");
   reactionBox.textContent = "WAIT";
 
   canClick = false;
@@ -24,8 +23,8 @@ function startReactionGame() {
   const delay = Math.random() * 3000 + 2000;
 
   reactionTimeout = setTimeout(() => {
-    // Turn green when ready
-    reactionBox.style.backgroundColor = "green";
+    // Turn green
+    reactionBox.classList.add("ready");
     reactionBox.textContent = "CLICK!";
 
     reactionStartTime = Date.now();
@@ -40,7 +39,7 @@ reactionBox.addEventListener("click", () => {
 
     reactionTimeText.textContent = "Too Early!";
 
-    reactionBox.style.backgroundColor = "red";
+    reactionBox.classList.remove("ready");
     reactionBox.textContent = "WAIT";
 
     return;
@@ -53,7 +52,7 @@ reactionBox.addEventListener("click", () => {
     `Reaction Time: ${reactionTime} ms`;
 
   // Reset back to red
-  reactionBox.style.backgroundColor = "red";
+  reactionBox.classList.remove("ready");
   reactionBox.textContent = "WAIT";
 
   canClick = false;
