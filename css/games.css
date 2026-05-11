@@ -69,3 +69,20 @@
   color: var(--main_text);
   font-size: 100px;
 }
+
+
+#reaction-box {
+  width: 250px;
+  height: 250px;
+  background-color: red;
+  margin: 30px auto;
+  border-radius: 12px;
+  display: none;
+  cursor: pointer;
+}
+
+#reaction-time {
+  color: white;
+  font-size: 28px;
+  margin-top: 20px;
+}

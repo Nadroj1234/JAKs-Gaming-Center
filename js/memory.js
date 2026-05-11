@@ -4,12 +4,16 @@ let lockBoard = false;
 
 const emojis = ["🐶", "🐱", "🐸", "🦊"];
 
+const board = document.getElementById("memory-board");
+const winner = document.getElementById("winner-div");
+
+
+
 function startMemoryGame() {
   firstCard = null;
   secondCard = null;
   lockBoard = false;
 
-  const board = document.getElementById("memory-board");
   board.innerHTML = "";
 
   const cards = [...emojis, ...emojis];
@@ -54,7 +58,6 @@ function shuffle(array) {
 function checkMatch(winner) {
   const isMatch = firstCard.textContent === secondCard.textContent;
 
-  const winner = document.getElementById("winner-div");
 
   if (!isMatch) {
     setTimeout(() => {
