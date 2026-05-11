@@ -40,7 +40,7 @@ function startMemoryGame() {
       secondCard = card;
       lockBoard = true;
 
-      checkMatch(winner);
+      checkMatch();
     });
 
     board.appendChild(card);
@@ -55,9 +55,8 @@ function shuffle(array) {
   }
 }
 
-function checkMatch(winner) {
+function checkMatch() {
   const isMatch = firstCard.textContent === secondCard.textContent;
-
 
   if (!isMatch) {
     setTimeout(() => {
@@ -72,11 +71,14 @@ function checkMatch(winner) {
 
     resetBoard();
   }
+
+  // Check for win
   if (document.querySelectorAll(".card:not(.matched)").length === 0) {
     winner.innerHTML = "YOU WIN!!!";
-    board.innerHTML = "";
+
     setTimeout(() => {
       winner.innerHTML = "";
+      board.innerHTML = "";
     }, 900);
   }
 }
