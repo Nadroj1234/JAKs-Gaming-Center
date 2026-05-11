@@ -5,26 +5,43 @@ let reactionStartTime;
 let reactionTimeout;
 let canClick = false;
 
+// RED style
+function setRed() {
+  reactionBox.style.background =
+    "linear-gradient(145deg, #ff4d4d, #cc0000)";
+
+  reactionBox.style.boxShadow =
+    "0 5px 0 #990000, 0 8px 15px rgba(0,0,0,0.3)";
+}
+
+// GREEN style
+function setGreen() {
+  reactionBox.style.background =
+    "linear-gradient(145deg, #4caf50, #2e7d32)";
+
+  reactionBox.style.boxShadow =
+    "0 5px 0 #1b5e20, 0 8px 15px rgba(0,0,0,0.3)";
+}
+
 // Starting state
 reactionBox.textContent = "WAIT";
+setRed();
 
 function startReactionGame() {
   clearTimeout(reactionTimeout);
 
   reactionTimeText.textContent = "Wait for green...";
 
-  // Reset box to red
-  reactionBox.classList.remove("ready");
+  setRed();
   reactionBox.textContent = "WAIT";
 
   canClick = false;
 
-  // Random delay between 2–5 seconds
   const delay = Math.random() * 3000 + 2000;
 
   reactionTimeout = setTimeout(() => {
-    // Turn green
-    reactionBox.classList.add("ready");
+    setGreen();
+
     reactionBox.textContent = "CLICK!";
 
     reactionStartTime = Date.now();
@@ -33,26 +50,25 @@ function startReactionGame() {
 }
 
 reactionBox.addEventListener("click", () => {
-  // Clicked too early
+  // Too early
   if (!canClick) {
     clearTimeout(reactionTimeout);
 
     reactionTimeText.textContent = "Too Early!";
 
-    reactionBox.classList.remove("ready");
+    setRed();
     reactionBox.textContent = "WAIT";
 
     return;
   }
 
-  // Calculate reaction time
+  // Reaction time
   const reactionTime = Date.now() - reactionStartTime;
 
   reactionTimeText.textContent =
     `Reaction Time: ${reactionTime} ms`;
 
-  // Reset back to red
-  reactionBox.classList.remove("ready");
+  setRed();
   reactionBox.textContent = "WAIT";
 
   canClick = false;
