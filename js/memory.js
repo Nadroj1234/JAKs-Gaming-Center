@@ -36,7 +36,7 @@ function startMemoryGame() {
       secondCard = card;
       lockBoard = true;
 
-      checkMatch();
+      checkMatch(winner);
     });
 
     board.appendChild(card);
@@ -51,7 +51,7 @@ function shuffle(array) {
   }
 }
 
-function checkMatch() {
+function checkMatch(winner) {
   const isMatch = firstCard.textContent === secondCard.textContent;
 
   const winner = document.getElementById("winner-div");
