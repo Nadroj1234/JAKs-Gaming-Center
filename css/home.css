@@ -1,3 +1,9 @@
+:root {
+  --main_text: #bc8034;
+  --main_bg: #d9cab3;
+  --card_bg: #90323d;
+}
+
 .header {
   display: flex;
   padding: 10px;
