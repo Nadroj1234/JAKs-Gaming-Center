@@ -7,8 +7,6 @@ const emojis = ["🐶", "🐱", "🐸", "🦊"];
 const board = document.getElementById("memory-board");
 const winner = document.getElementById("winner-div");
 
-
-
 function startMemoryGame() {
   firstCard = null;
   secondCard = null;

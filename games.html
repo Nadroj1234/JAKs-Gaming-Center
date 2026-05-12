@@ -20,13 +20,14 @@
     <!-- HEADER -->
     <header>
       <div class="header">
-        <h1 class="main_header" style="color: var(--main_text)"
-          >JAK Games</h1
-        >
+        <h1 class="main_header" style="color: var(--main_text)">JAK Games</h1>
         <div class="home_button_div">
           <button
             class="btn home-btn"
-            onclick="window.location.href='index.html'">Home</button>
+            onclick="window.location.href = 'index.html'"
+          >
+            Home
+          </button>
         </div>
       </div>
     </header>
@@ -56,12 +57,12 @@
 
       <div class="buttons">
         <button class="btn game-btn" onclick="playRPS('rock')">🪨 Rock</button>
-        <button class="btn game-btn" onclick="playRPS('paper')"
-          >📄 Paper</button
-        >
-        <button class="btn game-btn" onclick="playRPS('scissors')"
-          >✂️ Scissors</button
-        >
+        <button class="btn game-btn" onclick="playRPS('paper')">
+          📄 Paper
+        </button>
+        <button class="btn game-btn" onclick="playRPS('scissors')">
+          ✂️ Scissors
+        </button>
       </div>
 
       <p id="rps-result" style="color: var(--main_text)">Make your move!</p>
@@ -74,15 +75,15 @@
     <div id="memory-game" class="screen hidden">
       <h2 style="color: var(--main_text)">Memory Game</h2>
 
-      <div id="memory-board"> </div>
-      <div id="winner-div"> </div>
+      <div id="memory-board"></div>
+      <div id="winner-div"></div>
 
-      <button class="btn action-btn" onclick="startMemoryGame()"
-        >Start Game</button
-      >
-      <button class="btn action-btn" onclick="startMemoryGame()"
-        >Restart</button
-      >
+      <button class="btn action-btn" onclick="startMemoryGame()">
+        Start Game
+      </button>
+      <button class="btn action-btn" onclick="startMemoryGame()">
+        Restart
+      </button>
       <button class="btn back-btn" onclick="goHome()">Back</button>
     </div>
 
@@ -91,11 +92,11 @@
       <h2 style="color: var(--main_text)">Reaction Game</h2>
 
       <p style="color: var(--main_text); font-size: 30px">
-        Click the box as fast as you can when it appears!</p
-      >
-      <button class="start-btn action-btn" onclick="startReactionGame()"
-        >Start Game</button
-      >
+        Click the box as fast as you can when it appears!
+      </p>
+      <button class="start-btn action-btn" onclick="startReactionGame()">
+        Start Game
+      </button>
 
       <div id="reaction-box"></div>
 

@@ -7,20 +7,16 @@ let canClick = false;
 
 // RED style
 function setRed() {
-  reactionBox.style.background =
-    "linear-gradient(145deg, #ff4d4d, #cc0000)";
+  reactionBox.style.background = "linear-gradient(145deg, #ff4d4d, #cc0000)";
 
-  reactionBox.style.boxShadow =
-    "0 5px 0 #990000, 0 8px 15px rgba(0,0,0,0.3)";
+  reactionBox.style.boxShadow = "0 5px 0 #990000, 0 8px 15px rgba(0,0,0,0.3)";
 }
 
 // GREEN style
 function setGreen() {
-  reactionBox.style.background =
-    "linear-gradient(145deg, #4caf50, #2e7d32)";
+  reactionBox.style.background = "linear-gradient(145deg, #4caf50, #2e7d32)";
 
-  reactionBox.style.boxShadow =
-    "0 5px 0 #1b5e20, 0 8px 15px rgba(0,0,0,0.3)";
+  reactionBox.style.boxShadow = "0 5px 0 #1b5e20, 0 8px 15px rgba(0,0,0,0.3)";
 }
 
 // Starting state
@@ -65,8 +61,7 @@ reactionBox.addEventListener("click", () => {
   // Reaction time
   const reactionTime = Date.now() - reactionStartTime;
 
-  reactionTimeText.textContent =
-    `Reaction Time: ${reactionTime} ms`;
+  reactionTimeText.textContent = `Reaction Time: ${reactionTime} ms`;
 
   setRed();
   reactionBox.textContent = "WAIT";
