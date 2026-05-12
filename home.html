@@ -1,11 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <p>Hello</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>JAK Games - Home</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/games.css" />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="header">
+        <h1 class="main_header" style="color: var(--main_text)">
+          JAK Games
+        </h1>
+      </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <main id="home-screen" class="screen">
+      <div class="home-content">
+        <h2 style="color: var(--main_text)">
+          Welcome to JAK Games
+        </h2>
+
+        <p class="home-text">
+          Play fun browser games with a clean arcade-style experience.
+        </p>
+
+        <!-- Logo -->
+        <img
+          src="images/jak-logo.png"
+          alt="JAK Games Logo"
+          class="home-logo"
+        />
+
+        <!-- Button -->
+        <button
+          class="btn game-btn enter-btn"
+          onclick="window.location.href='index.html'"
+        >
+          🎮 Enter Games
+        </button>
+      </div>
+    </main>
+  </body>
 </html>

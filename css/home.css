@@ -76,3 +76,41 @@
 .action-btn:active {
   transform: translateY(3px);
 }
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  margin-top: 60px;
+}
+
+.home-text {
+  color: var(--main_text);
+
+  font-size: 24px;
+
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.home-logo {
+  width: 300px;
+
+  margin-bottom: 40px;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.enter-btn {
+  font-size: 24px;
+
+  padding: 16px 40px;
+}
