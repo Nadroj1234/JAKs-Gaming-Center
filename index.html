@@ -2,106 +2,56 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JAK Games</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <title>JAK Games - Home</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/home.css" />
     <link rel="stylesheet" href="css/games.css" />
-
-    <!-- JS -->
-    <script defer src="js/main.js"></script>
-    <script defer src="js/rps.js"></script>
-    <script defer src="js/memory.js"></script>
-    <script defer src="js/reaction.js"></script>
   </head>
+
   <body>
     <!-- HEADER -->
     <header>
       <div class="header">
-        <h1 class="main_header" style="color: var(--main_text)"
-          >JAK Games</h1
-        >
-        <div class="home_button_div">
-          <button
-            class="btn home-btn"
-            onclick="window.location.href='home.html'"
-          >Home</button>
-        </div>
+        <img
+          src="images/JAK_Games.png"
+          alt="JAK Games Logo"
+          class="home-logo"
+        />
+
+        <h1 class="main_header">
+          JAK's Footy Games
+        </h1>
       </div>
     </header>
 
-    <!-- HOME SCREEN -->
-    <div id="home-screen" class="screen">
-      <h2 style="color: var(--main_text)">Select a Game</h2>
+    <!-- HOME PAGE -->
+    <main id="home-screen" class="screen">
+      <div class="home-content">
 
-      <div class="game-container">
-        <div class="game-card" onclick="showGame('rps-game')">
-          <h3>Rock Paper Scissors</h3>
-        </div>
+        <h2 class="welcome-header">
+          Welcome to JAK's Footy Games
+        </h2>
 
-        <div class="game-card" onclick="showGame('memory-game')">
-          <h3>Memory Game</h3>
-        </div>
+        <p class="home-text">
+          Welcome to JAK's Footy Games.
+          Play fun browser games with an arcade-style experience!
+        </p>
 
-        <div class="game-card" onclick="showGame('reaction-game')">
-          <h3>Reaction Game</h3>
-        </div>
-      </div>
-    </div>
-
-    <!-- ROCK PAPER SCISSORS -->
-    <div id="rps-game" class="screen hidden">
-      <h2 style="color: var(--main_text)">Rock Paper Scissors</h2>
-
-      <div class="buttons">
-        <button class="btn game-btn" onclick="playRPS('rock')">🪨 Rock</button>
-        <button class="btn game-btn" onclick="playRPS('paper')"
-          >📄 Paper</button
+        <button
+          class="btn game-btn enter-btn"
+          onclick="window.location.href='games.html'"
         >
-        <button class="btn game-btn" onclick="playRPS('scissors')"
-          >✂️ Scissors</button
-        >
+          🎮 Enter Games
+        </button>
+
       </div>
-
-      <p id="rps-result" style="color: var(--main_text)">Make your move!</p>
-      <h2 class="winner_header"></h2>
-
-      <button class="btn back-btn" onclick="goHome()">Back</button>
-    </div>
-
-    <!-- MEMORY GAME -->
-    <div id="memory-game" class="screen hidden">
-      <h2 style="color: var(--main_text)">Memory Game</h2>
-
-      <div id="memory-board"> </div>
-      <div id="winner-div"> </div>
-
-      <button class="btn action-btn" onclick="startMemoryGame()"
-        >Start Game</button
-      >
-      <button class="btn action-btn" onclick="startMemoryGame()"
-        >Restart</button
-      >
-      <button class="btn back-btn" onclick="goHome()">Back</button>
-    </div>
-
-    <!-- REACTION GAME -->
-    <div id="reaction-game" class="screen hidden">
-      <h2 style="color: var(--main_text)">Reaction Game</h2>
-
-      <p style="color: var(--main_text); font-size: 30px">
-        Click the box as fast as you can when it appears!</p
-      >
-      <button class="start-btn action-btn" onclick="startReactionGame()"
-        >Start Game</button
-      >
-
-      <div id="reaction-box"></div>
-
-      <p id="reaction-time"></p>
-      <button class="btn back-btn" onclick="goHome()">Back</button>
-    </div>
+    </main>
   </body>
 </html>
