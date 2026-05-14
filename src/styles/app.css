@@ -1,0 +1,106 @@
+@import "../../css/style.css";
+@import "../../css/home.css";
+@import "../../css/games.css";
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.home-actions {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.section-title,
+.status-text,
+.reaction-instructions {
+  color: var(--main_text);
+}
+
+.section-title {
+  font-size: 2rem;
+}
+
+.buttons,
+.action-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.reaction-instructions {
+  font-size: 30px;
+}
+
+.reaction-box {
+  width: 250px;
+  height: 250px;
+  margin: 30px auto;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #ff4d4d, #cc0000);
+  box-shadow:
+    0 5px 0 #990000,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+  transition: 0.2s;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.reaction-box.ready {
+  background: linear-gradient(145deg, #4caf50, #2e7d32);
+  box-shadow:
+    0 5px 0 #1b5e20,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.reaction-box:active {
+  transform: translateY(3px);
+}
+
+@media (max-width: 700px) {
+  .home-page-header {
+    flex-direction: column;
+  }
+
+  .main_header {
+    text-align: center;
+  }
+
+  .welcome-header {
+    font-size: 48px;
+  }
+
+  .home-text,
+  .reaction-instructions {
+    font-size: 22px;
+  }
+
+  .game-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

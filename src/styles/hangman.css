@@ -1,0 +1,61 @@
+@import "../../public/style.css";
+
+.hangman-page {
+  min-height: 100vh;
+  background: var(--main_bg);
+  padding: 30px;
+}
+
+.hangman-shell {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.hangman-toolbar {
+  margin-bottom: 24px;
+}
+
+.hangman-card {
+  width: 100%;
+  background: var(--card_bg);
+  border-radius: 24px;
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.35),
+    inset 0 2px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hangman-card-body {
+  padding: 25px;
+  text-align: center;
+}
+
+.hangman-status {
+  margin-bottom: 24px;
+}
+
+.hangman-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hangman-figure {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.word-cluster {
+  display: flex;
+  align-items: center;
+}
+
+.message-success {
+  color: lime;
+}
+
+.message-danger {
+  color: red;
+}

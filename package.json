@@ -21,6 +21,12 @@
   },
   "homepage": "https://github.com/Nadroj1234/Mini_Game_Hub#readme",
   "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
     "vite": "^8.0.11"
+  },
+  "dependencies": {
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.15.1"
   }
 }
