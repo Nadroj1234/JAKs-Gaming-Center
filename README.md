@@ -30,20 +30,32 @@ npm run build
 
 ## GitHub Pages Deploy
 
-This project is configured for GitHub Pages using `HashRouter` and the repo base path.
+This project is configured for GitHub Pages using `HashRouter`, the repo base path, and a GitHub Actions deploy workflow.
 
-Deploy steps:
+Automatic deploy flow:
 
 ```bash
-npm run deploy
+git add .
+git commit -m "Update site"
+git push origin main
 ```
 
-That command will:
+Every push to `main` will:
 
 1. Build the app
-2. Publish the `dist` folder to the `gh-pages` branch
+2. Deploy the `dist` output to GitHub Pages automatically
 
-After deploying, make sure the GitHub repository Pages settings are using the `gh-pages` branch.
+One-time GitHub setup:
+
+1. Open the repository on GitHub
+2. Go to `Settings > Pages`
+3. Under `Build and deployment`, choose `GitHub Actions`
+
+Manual local production check:
+
+```bash
+npm run build
+```
 
 Live URL:
 
