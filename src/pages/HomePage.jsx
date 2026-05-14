@@ -67,6 +67,7 @@ function HomePage() {
           <Link to="/games">Games</Link>
           <Link to="/leaderboard">Leaderboard</Link>
           <Link to="/hangman">Hangman</Link>
+          <p>test</p>
         </div>
       </footer>
     </div>
