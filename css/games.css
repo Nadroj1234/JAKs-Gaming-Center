@@ -126,3 +126,25 @@
 
   margin-top: 20px;
 }
+
+.back-btn {
+  background: linear-gradient(145deg, #2ec4b6, #1aa89c);
+  color: white;
+
+  margin: 20px;
+  padding: 12px 20px;
+
+  box-shadow:
+    0 5px 0 #137d75,
+    0 8px 15px rgba(0, 0, 0, 0.3);
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.section-title {
+  color: var(--main_text);
+  font-size: 36px;
+  margin-bottom: 20px;
+  padding: 12px 20px;
+}

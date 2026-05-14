@@ -6,22 +6,25 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nadroj1234/Mini_Game_Hub.git"
+    "url": "git+https://github.com/Nadroj1234/JAKs-Gaming-Center.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/Nadroj1234/Mini_Game_Hub/issues"
+    "url": "https://github.com/Nadroj1234/JAKs-Gaming-Center/issues"
   },
-  "homepage": "https://github.com/Nadroj1234/Mini_Game_Hub#readme",
+  "homepage": "https://nadroj1234.github.io/JAKs-Gaming-Center/",
   "devDependencies": {
     "@vitejs/plugin-react": "^6.0.2",
+    "gh-pages": "^6.3.0",
     "vite": "^8.0.11"
   },
   "dependencies": {
