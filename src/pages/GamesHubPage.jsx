@@ -5,32 +5,35 @@ const gameCards = [
   {
     title: "Rock Paper Scissors",
     to: "/games/rps",
-    description: "A quick pick-and-counter match where streaks matter and every round counts.",
+    description:
+      "A quick pick-and-counter match where streaks matter and every round counts.",
   },
   {
     title: "Memory Game",
     to: "/games/memory",
-    description: "Match the board in as few moves as possible and try to beat your best score.",
+    description:
+      "Match the board in as few moves as possible and try to beat your best score.",
   },
   {
     title: "Reaction Game",
     to: "/games/reaction",
-    description: "Wait for the signal, click fast, and chase a lower reaction time every round.",
+    description:
+      "Wait for the signal, click fast, and chase a lower reaction time every round.",
   },
 ];
 
 function GamesHubPage() {
   return (
     <div className="app-shell site-surface">
-      <SiteHeader title="JAK Games" />
+      <SiteHeader title="JAK's Footy Games" />
       <main className="screen hub-screen">
         <section className="hub-hero">
           <div className="section-heading">
             <p className="eyebrow">Arcade Lobby</p>
             <h2 className="section-title">Choose your next challenge</h2>
             <p className="hub-subtext">
-              Pick a quick match, chase a better personal best, or head into Hangman for
-              a longer word challenge.
+              Pick a quick match, chase a better personal best, or head into
+              Hangman for a longer word challenge.
             </p>
           </div>
 
@@ -46,7 +49,11 @@ function GamesHubPage() {
 
         <section className="game-grid">
           {gameCards.map((game) => (
-            <Link key={game.to} className="game-card enhanced-card" to={game.to}>
+            <Link
+              key={game.to}
+              className="game-card enhanced-card"
+              to={game.to}
+            >
               <span className="card-kicker">Quick Play</span>
               <h3>{game.title}</h3>
               <p>{game.description}</p>
@@ -56,7 +63,10 @@ function GamesHubPage() {
           <Link className="game-card enhanced-card special-card" to="/hangman">
             <span className="card-kicker">Word Mode</span>
             <h3>Hangman</h3>
-            <p>Take on categories, difficulties, and a longer-form challenge with saved results.</p>
+            <p>
+              Take on categories, difficulties, and a longer-form challenge with
+              saved results.
+            </p>
             <span className="card-cta">Open Hangman</span>
           </Link>
         </section>
@@ -65,15 +75,24 @@ function GamesHubPage() {
           <div className="feature-grid">
             <article className="feature-card">
               <h4>Track Progress</h4>
-              <p>Wins, streaks, reaction times, and memory scores save locally as you play.</p>
+              <p>
+                Wins, streaks, reaction times, and memory scores save locally as
+                you play.
+              </p>
             </article>
             <article className="feature-card">
               <h4>Fast Sessions</h4>
-              <p>Each game is designed for quick rounds so the site feels easy to revisit.</p>
+              <p>
+                Each game is designed for quick rounds so the site feels easy to
+                revisit.
+              </p>
             </article>
             <article className="feature-card">
               <h4>More Arcade Feel</h4>
-              <p>The hub now works more like a real landing page instead of a plain menu.</p>
+              <p>
+                The hub now works more like a real landing page instead of a
+                plain menu.
+              </p>
             </article>
           </div>
         </section>
@@ -81,8 +100,11 @@ function GamesHubPage() {
 
       <footer className="site-footer">
         <div>
-          <strong>JAK Games</strong>
-          <p>Choose a route, set a score, and keep climbing your local leaderboard.</p>
+          <strong>JAK's Footy Games</strong>
+          <p>
+            Choose a route, set a score, and keep climbing your local
+            leaderboard.
+          </p>
         </div>
         <div className="site-footer-links">
           <Link to="/">Home</Link>

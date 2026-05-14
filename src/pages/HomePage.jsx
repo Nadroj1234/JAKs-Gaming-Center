@@ -4,7 +4,7 @@ import SiteHeader from "../components/SiteHeader.jsx";
 function HomePage() {
   return (
     <div className="app-shell site-surface">
-      <SiteHeader title="JAK Games" />
+      <SiteHeader title="JAK's Footy Games" />
 
       <main id="home-screen" className="screen home-screen">
         <section className="hero-panel">
@@ -60,7 +60,7 @@ function HomePage() {
 
       <footer className="site-footer">
         <div>
-          <strong>JAK Games</strong>
+          <strong>JAK's Footy Games</strong>
           <p>Fast browser games with persistent local score tracking.</p>
         </div>
         <div className="site-footer-links">
