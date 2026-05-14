@@ -4,6 +4,9 @@
 
 body {
   min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.22), transparent 28%),
+    linear-gradient(180deg, #eadfce 0%, #d9cab3 48%, #cfbda1 100%);
 }
 
 a {
@@ -20,6 +23,88 @@ button {
 
 .app-shell {
   min-height: 100vh;
+}
+
+.site-surface {
+  padding: 0 24px 32px;
+}
+
+.site-header {
+  padding-top: 22px;
+}
+
+.site-header-bar {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 16px 20px;
+  border-radius: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 248, 238, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 14px 28px rgba(77, 42, 18, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: inherit;
+}
+
+.site-brand-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.site-brand-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.site-brand-kicker,
+.eyebrow,
+.card-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.site-brand-kicker,
+.eyebrow {
+  color: #7a4a1e;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.site-nav-link {
+  padding: 10px 14px;
+  border-radius: 999px;
+  color: #4d2a12;
+  font-weight: 700;
+  transition: background 0.15s ease;
+}
+
+.site-nav-link:hover {
+  background: rgba(188, 128, 52, 0.12);
+}
+
+.site-discord-btn {
+  margin: 0;
 }
 
 .game-layout-screen {
@@ -53,12 +138,170 @@ button {
   justify-content: center;
 }
 
+.home-screen,
+.hub-screen {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding-top: 28px;
+}
+
+.hero-panel {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 26px;
+  align-items: stretch;
+  padding: 36px;
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.22), transparent 32%),
+    linear-gradient(155deg, #90323d 0%, #732a32 58%, #4d1f25 100%);
+  box-shadow:
+    0 24px 44px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.hero-copy {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+
+.hero-card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero-stat-card,
+.highlight-card,
+.feature-card {
+  border-radius: 24px;
+  background: rgba(31, 31, 46, 0.78);
+  color: white;
+  box-shadow:
+    0 12px 0 #141420,
+    0 18px 26px rgba(0, 0, 0, 0.2);
+}
+
+.hero-stat-card {
+  padding: 22px;
+  text-align: left;
+}
+
+.hero-stat-card strong {
+  display: block;
+  margin: 8px 0 10px;
+  font-size: 1.4rem;
+}
+
+.hero-stat-label,
+.card-kicker {
+  color: var(--main_text);
+}
+
+.content-section {
+  margin-top: 30px;
+}
+
+.section-heading {
+  margin-bottom: 20px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  padding: 24px;
+  text-align: left;
+}
+
+.feature-card h4,
+.highlight-card h3,
+.enhanced-card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.split-section {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.highlight-card {
+  padding: 28px;
+  text-align: left;
+}
+
+.alt-card {
+  background: linear-gradient(160deg, rgba(31, 31, 46, 0.85), rgba(26, 40, 66, 0.88));
+}
+
 .hub-actions {
   display: flex;
   justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
   margin-bottom: 24px;
+}
+
+.hub-hero {
+  margin-bottom: 28px;
+  padding: 28px;
+  border-radius: 28px;
+  background: rgba(255, 248, 238, 0.65);
+  box-shadow:
+    0 14px 28px rgba(77, 42, 18, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.hub-subtext {
+  max-width: 760px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #5e4637;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.enhanced-card {
+  width: auto;
+  min-height: 250px;
+  padding: 26px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.enhanced-card p {
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.card-cta {
+  color: var(--main_text);
+  font-weight: 800;
+}
+
+.special-card {
+  background: linear-gradient(155deg, #245264, #1b3347);
+  box-shadow:
+    0 8px 0 #122434,
+    0 12px 20px rgba(0, 0, 0, 0.38);
+}
+
+.compact-section {
+  margin-top: 22px;
 }
 
 .section-title,
@@ -228,17 +471,72 @@ button {
   color: rgba(255, 255, 255, 0.76);
 }
 
+.site-footer {
+  width: min(1180px, 100%);
+  margin: 34px auto 0;
+  padding: 24px 28px;
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: rgba(31, 31, 46, 0.92);
+  color: white;
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.16);
+}
+
+.site-footer p {
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.site-footer-links {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.site-footer-links a {
+  color: var(--main_text);
+  font-weight: 700;
+}
+
 @media (max-width: 700px) {
-  .home-page-header {
+  .site-surface {
+    padding: 0 14px 24px;
+  }
+
+  .site-header-bar,
+  .site-brand,
+  .site-nav,
+  .split-section,
+  .hero-panel {
+    grid-template-columns: 1fr;
     flex-direction: column;
   }
 
-  .main_header {
+  .site-header-bar,
+  .site-nav {
+    align-items: stretch;
+  }
+
+  .site-brand {
+    text-align: center;
+  }
+
+  .site-brand-logo {
+    width: 64px;
+    height: 64px;
+  }
+
+  .main_header,
+  .hero-copy {
     text-align: center;
   }
 
   .welcome-header {
-    font-size: 48px;
+    font-size: 42px;
   }
 
   .home-text,
@@ -246,9 +544,9 @@ button {
     font-size: 22px;
   }
 
-  .game-container {
-    flex-direction: column;
-    align-items: center;
+  .hero-panel,
+  .hub-hero {
+    padding: 24px 18px;
   }
 
   .game-layout-card {
@@ -265,6 +563,10 @@ button {
 
   .section-title {
     font-size: 2rem;
+  }
+
+  .enhanced-card {
+    min-height: auto;
   }
 
   .leaderboard-btn {
