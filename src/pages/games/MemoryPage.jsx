@@ -13,11 +13,20 @@ function MemoryPage() {
   const [moveCount, setMoveCount] = useState(0);
   const [scoreSummary, setScoreSummary] = useState(getStoredScores().memory);
   const timeoutRef = useRef(null);
+  const [timer, setTimer] = useState(0);
 
   function startGame() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
+
+    useEffect(() => {
+      for (let i = 0; i <= 9999; i++) {
+        setTimeout(() => {
+          setTimer(i);
+        }, i * 1000);
+      }
+    }, [timer]);
 
     const shuffledCards = [...memoryEmojis, ...memoryEmojis]
       .sort(() => Math.random() - 0.5)
@@ -85,10 +94,20 @@ function MemoryPage() {
   return (
     <GameLayout title="Memory Game">
       <div className="score-pill-row">
+        <span
+          className="timer"
+          style={{ fontSize: "18px", fontWeight: "bold" }}
+        >
+          Timer: {timer}
+        </span>
+
         <span className="score-pill">Moves: {moveCount}</span>
         <span className="score-pill">Wins: {scoreSummary.wins}</span>
         <span className="score-pill">
-          Best Score: {scoreSummary.bestMoves === null ? "--" : `${scoreSummary.bestMoves} moves`}
+          Best Score:{" "}
+          {scoreSummary.bestMoves === null
+            ? "--"
+            : `${scoreSummary.bestMoves} moves`}
         </span>
       </div>
 
