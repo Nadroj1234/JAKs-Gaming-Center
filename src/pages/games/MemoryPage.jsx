@@ -12,25 +12,23 @@ function MemoryPage() {
   const [gameStarted, setGameStarted] = useState(false);
   const [moveCount, setMoveCount] = useState(0);
   const [scoreSummary, setScoreSummary] = useState(getStoredScores().memory);
-  const timeoutRef = useRef(null);
   const [timer, setTimer] = useState(0);
+
+  const timeoutRef = useRef(null);
 
   function startGame() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
 
-    useEffect(() => {
-      for (let i = 0; i <= 9999; i++) {
-        setTimeout(() => {
-          setTimer(i);
-        }, i * 1000);
-      }
-    }, [timer]);
+    setTimer(0);
 
     const shuffledCards = [...memoryEmojis, ...memoryEmojis]
       .sort(() => Math.random() - 0.5)
-      .map((emoji, index) => ({ id: `${emoji}-${index}`, emoji }));
+      .map((emoji, index) => ({
+        id: `${emoji}-${index}`,
+        emoji,
+      }));
 
     setCards(shuffledCards);
     setSelectedIds([]);
@@ -39,6 +37,18 @@ function MemoryPage() {
     setGameStarted(true);
     setMoveCount(0);
   }
+
+  useEffect(() => {
+    let interval;
+
+    if (gameStarted) {
+      interval = setInterval(() => {
+        setTimer((current) => current + 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [gameStarted]);
 
   useEffect(() => {
     return () => {
@@ -52,12 +62,14 @@ function MemoryPage() {
     if (cards.length > 0 && matchedIds.length === cards.length) {
       setWinnerText("YOU WIN!!!");
       setScoreSummary(recordMemoryWin(moveCount).memory);
+
+      setGameStarted(false);
+
       setCards([]);
       setSelectedIds([]);
       setMatchedIds([]);
-      setGameStarted(false);
     }
-  }, [cards.length, matchedIds.length, moveCount]);
+  }, [cards, matchedIds, moveCount]);
 
   function handleCardClick(card) {
     if (
@@ -76,7 +88,9 @@ function MemoryPage() {
     }
 
     const [firstId, secondId] = nextSelectedIds;
+
     setMoveCount((current) => current + 1);
+
     const firstCard = cards.find((entry) => entry.id === firstId);
     const secondCard = cards.find((entry) => entry.id === secondId);
 
@@ -98,11 +112,13 @@ function MemoryPage() {
           className="timer"
           style={{ fontSize: "18px", fontWeight: "bold" }}
         >
-          Timer: {timer}
+          Timer: {timer}s
         </span>
 
         <span className="score-pill">Moves: {moveCount}</span>
+
         <span className="score-pill">Wins: {scoreSummary.wins}</span>
+
         <span className="score-pill">
           Best Score:{" "}
           {scoreSummary.bestMoves === null
@@ -116,9 +132,10 @@ function MemoryPage() {
           {cards.map((card) => {
             const isFlipped =
               selectedIds.includes(card.id) || matchedIds.includes(card.id);
-            const cardClassName = `card${isFlipped ? " flipped" : ""}${
-              matchedIds.includes(card.id) ? " matched" : ""
-            }`;
+
+            const cardClassName = `card${
+              isFlipped ? " flipped" : ""
+            }${matchedIds.includes(card.id) ? " matched" : ""}`;
 
             return (
               <button
@@ -127,7 +144,7 @@ function MemoryPage() {
                 onClick={() => handleCardClick(card)}
                 type="button"
               >
-                {card.emoji}
+                {isFlipped ? card.emoji : "?"}
               </button>
             );
           })}
@@ -140,6 +157,7 @@ function MemoryPage() {
         <button className="btn action-btn" onClick={startGame} type="button">
           Start Game
         </button>
+
         <button className="btn action-btn" onClick={startGame} type="button">
           Restart
         </button>
