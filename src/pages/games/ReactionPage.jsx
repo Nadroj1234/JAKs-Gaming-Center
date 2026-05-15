@@ -58,7 +58,10 @@ function ReactionPage() {
   return (
     <GameLayout title="Reaction Game">
       <div className="score-pill-row">
-        <span className="score-pill">Best Time: {scoreSummary.bestTime ?? "--"} ms</span>
+        <span className="score-pill">
+          Best Time:{" "}
+          {scoreSummary.bestTime === null ? "--" : `${scoreSummary.bestTime} ms`}
+        </span>
         <span className="score-pill">Completed Attempts: {scoreSummary.gamesPlayed}</span>
       </div>
 

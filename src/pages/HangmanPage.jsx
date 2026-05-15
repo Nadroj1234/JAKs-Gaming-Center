@@ -8,10 +8,10 @@ const keyboardLetters = Array.from({ length: 26 }, (_, index) =>
 );
 
 const hangmanDifficultyMap = {
-  easy: { label: "Easy", remainingGuesses: 6 },
-  medium: { label: "Medium", remainingGuesses: 5 },
-  hard: { label: "Hard", remainingGuesses: 4 },
-  advanced: { label: "Advanced", remainingGuesses: 3 },
+  easy: { label: "Easy", remainingGuesses: 6, timeLimitSec: 90 },
+  medium: { label: "Medium", remainingGuesses: 5, timeLimitSec: 75 },
+  hard: { label: "Hard", remainingGuesses: 4, timeLimitSec: 60 },
+  advanced: { label: "Advanced", remainingGuesses: 3, timeLimitSec: 45 },
 };
 
 function HangmanPage() {
@@ -23,15 +23,20 @@ function HangmanPage() {
   const [wrongLetters, setWrongLetters] = useState([]);
   const [message, setMessage] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  const [timeRemainingSec, setTimeRemainingSec] = useState(
+    hangmanDifficultyMap.easy.timeLimitSec,
+  );
   const [scoreSummary, setScoreSummary] = useState(getStoredScores().hangman);
   const resultRecordedRef = useRef(false);
 
   const difficultySettings = hangmanDifficultyMap[difficulty];
-  const remainingGuesses = difficultySettings.remainingGuesses - wrongLetters.length;
+  const remainingGuesses =
+    difficultySettings.remainingGuesses - wrongLetters.length;
 
   function initGame(nextDifficulty = difficulty) {
     const categories = Object.keys(words);
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+    const randomCategory =
+      categories[Math.floor(Math.random() * categories.length)];
     const wordList = words[randomCategory];
     const nextWord = wordList[Math.floor(Math.random() * wordList.length)];
 
@@ -42,6 +47,7 @@ function HangmanPage() {
     setWrongLetters([]);
     setMessage("");
     setGameOver(false);
+    setTimeRemainingSec(hangmanDifficultyMap[nextDifficulty].timeLimitSec);
     resultRecordedRef.current = false;
   }
 
@@ -49,13 +55,34 @@ function HangmanPage() {
     initGame("easy");
   }, []);
 
+  useEffect(() => {
+    if (!selectedWord || gameOver) {
+      return undefined;
+    }
+
+    const timerId = window.setInterval(() => {
+      setTimeRemainingSec((current) => {
+        if (current <= 1) {
+          window.clearInterval(timerId);
+          return 0;
+        }
+
+        return current - 1;
+      });
+    }, 1000);
+
+    return () => window.clearInterval(timerId);
+  }, [gameOver, selectedWord]);
+
   const revealedCharacters = useMemo(
     () =>
       selectedWord
         .toUpperCase()
         .split("")
         .map((character) =>
-          character === " " || correctLetters.includes(character) ? character : "_",
+          character === " " || correctLetters.includes(character)
+            ? character
+            : "_",
         ),
     [correctLetters, selectedWord],
   );
@@ -86,39 +113,56 @@ function HangmanPage() {
     const hasWon = selectedWord
       .toUpperCase()
       .split("")
-      .every((character) => character === " " || correctLetters.includes(character));
+      .every(
+        (character) => character === " " || correctLetters.includes(character),
+      );
 
     if (hasWon) {
       setGameOver(true);
       setMessage("Congrats! You Won!");
+
       if (!resultRecordedRef.current) {
         setScoreSummary(
           recordHangmanResult({
             won: true,
             difficulty: difficultySettings.label,
             remainingGuesses,
+            timeRemainingSec,
           }).hangman,
         );
         resultRecordedRef.current = true;
       }
+
       return;
     }
 
-    if (remainingGuesses <= 0) {
+    if (remainingGuesses <= 0 || timeRemainingSec <= 0) {
       setGameOver(true);
-      setMessage(`Game Over! The word was: ${selectedWord}`);
+      setMessage(
+        timeRemainingSec <= 0
+          ? `Time's up! The word was: ${selectedWord}`
+          : `Game Over! The word was: ${selectedWord}`,
+      );
+
       if (!resultRecordedRef.current) {
         setScoreSummary(
           recordHangmanResult({
             won: false,
             difficulty: difficultySettings.label,
             remainingGuesses,
+            timeRemainingSec,
           }).hangman,
         );
         resultRecordedRef.current = true;
       }
     }
-  }, [correctLetters, difficultySettings.label, remainingGuesses, selectedWord]);
+  }, [
+    correctLetters,
+    difficultySettings.label,
+    remainingGuesses,
+    selectedWord,
+    timeRemainingSec,
+  ]);
 
   useEffect(() => {
     function handleKeyDown(event) {
@@ -137,13 +181,17 @@ function HangmanPage() {
   );
   const messageClassName = `game-message${
     message.includes("Won") ? " message-success" : ""
-  }${message.includes("Game Over") ? " message-danger" : ""}`;
+  }${message.includes("up") || message.includes("Game Over") ? " message-danger" : ""}`;
 
   return (
     <div className="hangman-page">
       <div className="hangman-shell">
         <div className="hangman-toolbar">
-          <button className="btn home-btn" onClick={() => navigate("/")} type="button">
+          <button
+            className="btn home-btn"
+            onClick={() => navigate("/")}
+            type="button"
+          >
             Home
           </button>
         </div>
@@ -153,14 +201,25 @@ function HangmanPage() {
             <h1 className="display-5">Hangman Game</h1>
 
             <div className="score-pill-row">
+              <span className="score-pill">
+                Best Time Left:{" "}
+                {scoreSummary.bestTimeRemaining === null
+                  ? "--"
+                  : `${scoreSummary.bestTimeRemaining}s`}
+              </span>
               <span className="score-pill">Wins: {scoreSummary.wins}</span>
               <span className="score-pill">Losses: {scoreSummary.losses}</span>
-              <span className="score-pill">Best Streak: {scoreSummary.bestWinStreak}</span>
+              <span className="score-pill">
+                Best Streak: {scoreSummary.bestWinStreak}
+              </span>
             </div>
 
             <div className="hangman-status">
               <p id="remaining-guesses" className="fs-5 mb-3">
                 Remaining guesses: {remainingGuesses}
+              </p>
+              <p className="hangman-timer">
+                Time Left: <strong>{timeRemainingSec}s</strong>
               </p>
 
               <div className="hangman-controls">
@@ -173,11 +232,13 @@ function HangmanPage() {
                   onChange={(event) => initGame(event.target.value)}
                   value={difficulty}
                 >
-                  {Object.entries(hangmanDifficultyMap).map(([value, settings]) => (
-                    <option key={value} value={value}>
-                      {settings.label}
-                    </option>
-                  ))}
+                  {Object.entries(hangmanDifficultyMap).map(
+                    ([value, settings]) => (
+                      <option key={value} value={value}>
+                        {settings.label}
+                      </option>
+                    ),
+                  )}
                 </select>
               </div>
 
@@ -187,11 +248,44 @@ function HangmanPage() {
             </div>
 
             <div className="hangman-figure">
-              <svg id="hangman-svg" width="220" height="220" viewBox="0 0 200 200">
-                <line x1="20" y1="180" x2="100" y2="180" stroke="#ffffff" strokeWidth="4" />
-                <line x1="60" y1="180" x2="60" y2="20" stroke="#ffffff" strokeWidth="4" />
-                <line x1="60" y1="20" x2="140" y2="20" stroke="#ffffff" strokeWidth="4" />
-                <line x1="140" y1="20" x2="140" y2="40" stroke="#ffffff" strokeWidth="4" />
+              <svg
+                id="hangman-svg"
+                width="220"
+                height="220"
+                viewBox="0 0 200 200"
+              >
+                <line
+                  x1="20"
+                  y1="180"
+                  x2="100"
+                  y2="180"
+                  stroke="#ffffff"
+                  strokeWidth="4"
+                />
+                <line
+                  x1="60"
+                  y1="180"
+                  x2="60"
+                  y2="20"
+                  stroke="#ffffff"
+                  strokeWidth="4"
+                />
+                <line
+                  x1="60"
+                  y1="20"
+                  x2="140"
+                  y2="20"
+                  stroke="#ffffff"
+                  strokeWidth="4"
+                />
+                <line
+                  x1="140"
+                  y1="20"
+                  x2="140"
+                  y2="40"
+                  stroke="#ffffff"
+                  strokeWidth="4"
+                />
 
                 <circle
                   cx="140"
@@ -218,7 +312,9 @@ function HangmanPage() {
                   y2="90"
                   stroke="#ffffff"
                   strokeWidth="3"
-                  style={{ display: hangmanVisibility.leftArm ? "block" : "none" }}
+                  style={{
+                    display: hangmanVisibility.leftArm ? "block" : "none",
+                  }}
                 />
                 <line
                   x1="140"
@@ -227,7 +323,9 @@ function HangmanPage() {
                   y2="90"
                   stroke="#ffffff"
                   strokeWidth="3"
-                  style={{ display: hangmanVisibility.rightArm ? "block" : "none" }}
+                  style={{
+                    display: hangmanVisibility.rightArm ? "block" : "none",
+                  }}
                 />
                 <line
                   x1="140"
@@ -236,7 +334,9 @@ function HangmanPage() {
                   y2="160"
                   stroke="#ffffff"
                   strokeWidth="3"
-                  style={{ display: hangmanVisibility.leftLeg ? "block" : "none" }}
+                  style={{
+                    display: hangmanVisibility.leftLeg ? "block" : "none",
+                  }}
                 />
                 <line
                   x1="140"
@@ -245,13 +345,50 @@ function HangmanPage() {
                   y2="160"
                   stroke="#ffffff"
                   strokeWidth="3"
-                  style={{ display: hangmanVisibility.rightLeg ? "block" : "none" }}
+                  style={{
+                    display: hangmanVisibility.rightLeg ? "block" : "none",
+                  }}
                 />
-                <g style={{ display: gameOver && remainingGuesses <= 0 ? "block" : "none" }}>
-                  <line x1="130" y1="55" x2="135" y2="60" stroke="#ffffff" strokeWidth="2" />
-                  <line x1="135" y1="55" x2="130" y2="60" stroke="#ffffff" strokeWidth="2" />
-                  <line x1="145" y1="55" x2="150" y2="60" stroke="#ffffff" strokeWidth="2" />
-                  <line x1="150" y1="55" x2="145" y2="60" stroke="#ffffff" strokeWidth="2" />
+                <g
+                  style={{
+                    display:
+                      gameOver && (remainingGuesses <= 0 || timeRemainingSec <= 0)
+                        ? "block"
+                        : "none",
+                  }}
+                >
+                  <line
+                    x1="130"
+                    y1="55"
+                    x2="135"
+                    y2="60"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
+                  <line
+                    x1="135"
+                    y1="55"
+                    x2="130"
+                    y2="60"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
+                  <line
+                    x1="145"
+                    y1="55"
+                    x2="150"
+                    y2="60"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
+                  <line
+                    x1="150"
+                    y1="55"
+                    x2="145"
+                    y2="60"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
                   <path
                     d="M130 70 Q140 80 150 70"
                     stroke="#ffffff"
@@ -263,18 +400,29 @@ function HangmanPage() {
             </div>
 
             <div className="word-display" id="word-display">
-              {revealedCharacters.join("").split(" ").map((wordPart, wordIndex, parts) => (
-                <div className="word-cluster" key={`${wordPart}-${wordIndex}`}>
-                  <div className="word-group">
-                    {wordPart.split("").map((character, index) => (
-                      <div className="word-letter" key={`${character}-${index}`}>
-                        {character}
-                      </div>
-                    ))}
+              {revealedCharacters
+                .join("")
+                .split(" ")
+                .map((wordPart, wordIndex, parts) => (
+                  <div
+                    className="word-cluster"
+                    key={`${wordPart}-${wordIndex}`}
+                  >
+                    <div className="word-group">
+                      {wordPart.split("").map((character, index) => (
+                        <div
+                          className="word-letter"
+                          key={`${character}-${index}`}
+                        >
+                          {character}
+                        </div>
+                      ))}
+                    </div>
+                    {wordIndex < parts.length - 1 ? (
+                      <div className="word-space" />
+                    ) : null}
                   </div>
-                  {wordIndex < parts.length - 1 ? <div className="word-space" /> : null}
-                </div>
-              ))}
+                ))}
             </div>
 
             <div className="keyboard" id="keyboard">

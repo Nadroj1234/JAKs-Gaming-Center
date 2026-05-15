@@ -3,6 +3,7 @@ import GameLayout from "../../components/GameLayout.jsx";
 import { getStoredScores, recordMemoryWin } from "../../utils/scoreStorage.js";
 
 const memoryEmojis = ["🐶", "🐱", "🐸", "🦊"];
+const MEMORY_TIME_LIMIT_SEC = 60;
 
 function MemoryPage() {
   const [cards, setCards] = useState([]);
@@ -12,7 +13,7 @@ function MemoryPage() {
   const [gameStarted, setGameStarted] = useState(false);
   const [moveCount, setMoveCount] = useState(0);
   const [scoreSummary, setScoreSummary] = useState(getStoredScores().memory);
-  const [timer, setTimer] = useState(0);
+  const [timeRemainingSec, setTimeRemainingSec] = useState(MEMORY_TIME_LIMIT_SEC);
 
   const timeoutRef = useRef(null);
 
@@ -21,7 +22,7 @@ function MemoryPage() {
       clearTimeout(timeoutRef.current);
     }
 
-    setTimer(0);
+    setTimeRemainingSec(MEMORY_TIME_LIMIT_SEC);
 
     const shuffledCards = [...memoryEmojis, ...memoryEmojis]
       .sort(() => Math.random() - 0.5)
@@ -39,13 +40,20 @@ function MemoryPage() {
   }
 
   useEffect(() => {
-    let interval;
-
-    if (gameStarted) {
-      interval = setInterval(() => {
-        setTimer((current) => current + 1);
-      }, 1000);
+    if (!gameStarted) {
+      return undefined;
     }
+
+    const interval = setInterval(() => {
+      setTimeRemainingSec((current) => {
+        if (current <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+
+        return current - 1;
+      });
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [gameStarted]);
@@ -61,7 +69,7 @@ function MemoryPage() {
   useEffect(() => {
     if (cards.length > 0 && matchedIds.length === cards.length) {
       setWinnerText("YOU WIN!!!");
-      setScoreSummary(recordMemoryWin(moveCount).memory);
+      setScoreSummary(recordMemoryWin(moveCount, timeRemainingSec).memory);
 
       setGameStarted(false);
 
@@ -69,7 +77,17 @@ function MemoryPage() {
       setSelectedIds([]);
       setMatchedIds([]);
     }
-  }, [cards, matchedIds, moveCount]);
+  }, [cards, matchedIds, moveCount, timeRemainingSec]);
+
+  useEffect(() => {
+    if (gameStarted && timeRemainingSec <= 0) {
+      setWinnerText("Time's up! Press Start Game or Restart to try again.");
+      setGameStarted(false);
+      setCards([]);
+      setSelectedIds([]);
+      setMatchedIds([]);
+    }
+  }, [gameStarted, timeRemainingSec]);
 
   function handleCardClick(card) {
     if (
@@ -108,22 +126,20 @@ function MemoryPage() {
   return (
     <GameLayout title="Memory Game">
       <div className="score-pill-row">
-        <span
-          className="timer"
-          style={{ fontSize: "18px", fontWeight: "bold" }}
-        >
-          Timer: {timer}
-        </span>
-
+        <span className="score-pill">Time Left: {timeRemainingSec}s</span>
         <span className="score-pill">Moves: {moveCount}</span>
-
         <span className="score-pill">Wins: {scoreSummary.wins}</span>
-
         <span className="score-pill">
           Best Score:{" "}
           {scoreSummary.bestMoves === null
             ? "--"
             : `${scoreSummary.bestMoves} moves`}
+        </span>
+        <span className="score-pill">
+          Best Time Left:{" "}
+          {scoreSummary.bestTimeRemaining === null
+            ? "--"
+            : `${scoreSummary.bestTimeRemaining}s`}
         </span>
       </div>
 

@@ -46,6 +46,12 @@ function LeaderboardPage() {
                   ? "No score yet"
                   : `${scores.memory.bestMoves} moves`}
               </p>
+              <p>
+                Best Time Left:{" "}
+                {scores.memory.bestTimeRemaining === null
+                  ? "No score yet"
+                  : `${scores.memory.bestTimeRemaining}s`}
+              </p>
             </article>
 
             <article className="leaderboard-panel">
@@ -66,10 +72,10 @@ function LeaderboardPage() {
               <p>Losses: {scores.hangman.losses}</p>
               <p>Best Win Streak: {scores.hangman.bestWinStreak}</p>
               <p>
-                Best Time:{" "}
-                {scores.hangman.time === 0
+                Best Time Left:{" "}
+                {scores.hangman.bestTimeRemaining === null
                   ? "No score yet"
-                  : `${scores.hangman.time} ms`}
+                  : `${scores.hangman.bestTimeRemaining}s`}
               </p>
             </article>
           </div>
@@ -97,7 +103,7 @@ function LeaderboardPage() {
                   .map((win, index) => ({
                     id: `${win.playedAt}-${index}`,
                     primary: `${win.moves} moves`,
-                    secondary: formatDate(win.playedAt),
+                    secondary: `${formatDate(win.playedAt)} - ${win.timeRemainingSec}s left`,
                   }))}
               />
             </section>
@@ -121,7 +127,7 @@ function LeaderboardPage() {
                 items={scores.hangman.recentResults.map((result, index) => ({
                   id: `${result.playedAt}-${index}`,
                   primary: `${capitalize(result.outcome)} - ${result.difficulty}`,
-                  secondary: `${formatDate(result.playedAt)} - ${result.remainingGuesses} guesses left`,
+                  secondary: `${formatDate(result.playedAt)} - ${result.remainingGuesses} guesses left - ${result.timeRemainingSec}s left`,
                 }))}
               />
             </section>
