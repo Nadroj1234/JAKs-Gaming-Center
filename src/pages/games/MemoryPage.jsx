@@ -112,7 +112,7 @@ function MemoryPage() {
           className="timer"
           style={{ fontSize: "18px", fontWeight: "bold" }}
         >
-          Timer: {timer}s
+          Timer: {timer}
         </span>
 
         <span className="score-pill">Moves: {moveCount}</span>

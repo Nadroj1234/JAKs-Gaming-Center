@@ -65,6 +65,12 @@ function LeaderboardPage() {
               <p>Wins: {scores.hangman.wins}</p>
               <p>Losses: {scores.hangman.losses}</p>
               <p>Best Win Streak: {scores.hangman.bestWinStreak}</p>
+              <p>
+                Best Time:{" "}
+                {scores.hangman.time === 0
+                  ? "No score yet"
+                  : `${scores.hangman.time} ms`}
+              </p>
             </article>
           </div>
 

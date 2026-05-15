@@ -27,6 +27,7 @@ function getDefaultScores() {
       gamesPlayed: 0,
       wins: 0,
       losses: 0,
+      time: 0,
       currentWinStreak: 0,
       bestWinStreak: 0,
       recentResults: [],
@@ -143,7 +144,9 @@ export function recordReactionAttempt(timeMs) {
         timeMs,
         playedAt: new Date().toISOString(),
       },
-      ...nextScores.reaction.attempts.sort((first, second) => first.timeMs - second.timeMs),
+      ...nextScores.reaction.attempts.sort(
+        (first, second) => first.timeMs - second.timeMs,
+      ),
     ]).sort((first, second) => first.timeMs - second.timeMs);
 
     return nextScores;
@@ -155,7 +158,21 @@ export function recordHangmanResult({ won, difficulty, remainingGuesses }) {
     const nextScores = structuredClone(scores);
     nextScores.hangman.gamesPlayed += 1;
 
+    nextScores.hangman.gamesPlayed += 1;
+    nextScores.hangman.time =
+      nextScores.hangman.time === 0
+        ? time
+        : Math.min(nextScores.hangman.time, time);
+    nextScores.hangman.recentResults = limitHistory([
+      {
+        timeMs,
+        playedAt: new Date().toISOString(),
+      },
+      ...nextScores.hangman.recentResults,
+    ]);
+
     if (won) {
+      nextScores.hangman.time = time;
       nextScores.hangman.wins += 1;
       nextScores.hangman.currentWinStreak += 1;
       nextScores.hangman.bestWinStreak = Math.max(
